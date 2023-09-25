@@ -1,0 +1,139 @@
+---
+spec/lib/ghostest/manager_spec.rb:
+  :source_md5: 76b1c9a96cdfe686604a414e05bc8377
+spec/lib/ghostest/attr_reader_spec.rb:
+  :source_md5: 42d9b1e4f371fa11d7810ebc4943775b
+spec/lib/ghostest/config/agent_spec.rb:
+  :source_md5: e3cc024d494d08e0b0b5755fe6d3bb42
+spec/lib/ghostest/languages/ruby_spec.rb:
+  :source_md5: 3599219cc7927d00082048c905be2c1a
+spec/lib/ghostest/logger_spec.rb:
+  :source_md5: 48bae23b048169464927bd09863a152b
+spec/lib/ghostest/config_error_spec.rb:
+  :source_md5: 233c16bb0ce557bfaeaf76c7b42ff19b
+spec/lib/ghostest/config_spec.rb:
+  :source_md5: '09e563a0a3684764d7652c998d6f47d5'
+spec/lib/ghostest/version_spec.rb:
+  :source_md5: 72d15363d6c8da8c6f5a13e723573c36
+spec/lib/ghostest/error_spec.rb:
+  :source_md5: ef01156ca0dda356ccf166093300a665
+spec/lib/ghostest/test_condition_spec.rb:
+  :source_md5: 37ae55143192a2e1cf02a92f57e0946d
+spec/lib/llm/clients/azure_open_ai_spec.rb:
+  :source_md5: 42406a7f1b61697cfdc20842fc6240fc
+spec/lib/llm/agents/base_spec.rb:
+  :source_md5: ded06c0570f2feb44238adca97b50490
+spec/lib/llm/agents/reviewer_spec.rb:
+  :source_md5: c1978f81770b692eed9386226356adea
+spec/lib/llm/agents/programmer_spec.rb:
+  :source_md5: 1f60e2d5653a44aba4e2b9709ec5bf39
+spec/lib/llm/message_container_spec.rb:
+  :source_md5: 48b52cf92aa004eb698ceee7afd1a9ad
+spec/lib/llm/functions/base_spec.rb:
+  :source_md5: 6aa4ec003f3972e59fc5b797a3be0ffe
+spec/lib/llm/functions/add_to_memory_spec.rb:
+  :source_md5: bc9befa74d47ca40715a2dd6392b0364
+spec/lib/llm/functions/generate_pull_request_params_spec.rb:
+  :source_md5: 3ac8a41d8fea8cc02e8b82a8f957f632
+spec/lib/llm/functions/read_file_spec.rb:
+  :source_md5: 2b0c010800df0180f5c9bcad41e92cd2
+spec/lib/llm/functions/make_new_file_spec.rb:
+  :source_md5: c1143086a3c4a02547a3182ff4a088c3
+spec/lib/llm/functions/overwrite_file_spec.rb:
+  :source_md5: f3a39c4ec0f7695fd668040aa55a016f
+spec/lib/llm/functions/record_lgtm_spec.rb:
+  :source_md5: 889804bb09e079915e6b2a882c3b0b3f
+spec/lib/llm/functions/get_files_list_spec.rb:
+  :source_md5: c4964e11cde50cfbe83efd8799d4e3ba
+spec/lib/llm/functions/exec_rspec_test_spec.rb:
+  :source_md5: da877a6539692d7e13617a498c2012a1
+spec/lib/llm/functions/google_search_spec.rb:
+  :source_md5: e2b935da1a497bb8196bc4caf70d704d
+spec/lib/llm/functions/switch_assignee_spec.rb:
+  :source_md5: e53444bab8a86f8f4de1f0106a4ab0a7
+spec/lib/llm/functions/report_bug_spec.rb:
+  :source_md5: 570acdcb732815213f03bdce63d9ceb4
+spec/lib/llm/functions/open_url_spec.rb:
+  :source_md5: 144b72e2fc73181f463af8822aaf8a3d
+spec/lib/llm/functions/get_gem_files_list_spec.rb:
+  :source_md5: 89f321ed0b1155233c39e3873b5f3af1
+spec/lib/ghostest_spec.rb:
+  :source_md5: 41d3c9c823413b546cd035285f0845b4
+spec/lib/google_custom_search_spec.rb:
+  :source_md5: 3055c7401891d71608ef9805b8c3d5bf
+spec/lib/initializers/i18n_spec.rb:
+  :source_md5: 1ffa09b60289e0533d8aa08d61e60b19
+spec/lib/i18n_translator_spec.rb:
+  :source_md5: d0137bdf0cfab03f969b9a67d4b7ce48
+lib/ghostest/attr_reader.rb:
+  :source_md5: 2444f9e6b89a96fed08ec645f0b67c4e
+lib/ghostest/config/agent.rb:
+  :source_md5: b498e2b28045ca4dbd371f2dc56c1bfa
+lib/ghostest/config.rb:
+  :source_md5: 2f800d51399635cfd50d1ae5daa3049d
+lib/ghostest/config_error.rb:
+  :source_md5: 693982b3423617b355df1391cd2a328d
+lib/ghostest/error.rb:
+  :source_md5: a9e37ec7bfbe5d3bd79226f110e2bdf7
+lib/ghostest/languages/ruby.rb:
+  :source_md5: b8ba431a4486071a9b758276d3629ad2
+lib/ghostest/logger.rb:
+  :source_md5: 48bae23b048169464927bd09863a152b
+lib/ghostest/manager.rb:
+  :source_md5: eddbae3f3cdcd506b14708d2669213fb
+lib/ghostest/test_condition.rb:
+  :source_md5: 758a45e3d955ae6a3726811f262d326e
+lib/ghostest/version.rb:
+  :source_md5: 72d15363d6c8da8c6f5a13e723573c36
+lib/ghostest.rb:
+  :source_md5: 824f9e137b4f0a56b03f69f2616b8db8
+lib/google_custom_search.rb:
+  :source_md5: 3055c7401891d71608ef9805b8c3d5bf
+lib/i18n_translator.rb:
+  :source_md5: d8373d318127536fd9b4007a2175863d
+lib/initializers/i18n.rb:
+  :source_md5: 1ffa09b60289e0533d8aa08d61e60b19
+lib/llm/agents/base.rb:
+  :source_md5: 447ab8afecd4725690e032af7682988a
+lib/llm/agents/reviewer.rb:
+  :source_md5: 21e86441b5d9a55a6008411f2b9854d4
+lib/llm/agents/test_designer.rb:
+  :source_md5: a608ec411d33b539e4cf0dc0a7cccc25
+lib/llm/agents/test_programmer.rb:
+  :source_md5: d33bcaffe073051d166c4b3c1ec7e507
+lib/llm/clients/azure_open_ai.rb:
+  :source_md5: d8b9e3704b4218094a6ea77435e97ead
+lib/llm/clients/base.rb:
+  :source_md5: 05de30aa82df9663b82d6f3cdeb19c7e
+lib/llm/clients/open_ai.rb:
+  :source_md5: bd03dc7dafab7d82b2ddf22d6a5bacac
+lib/llm/functions/add_to_memory.rb:
+  :source_md5: a5a9ad9f94e81afdc8eafdb120461d0a
+lib/llm/functions/base.rb:
+  :source_md5: 2d9a42784215a6f961b2af6b6d710058
+lib/llm/functions/exec_rspec_test.rb:
+  :source_md5: 0f0562506b082ff48338245412975b41
+lib/llm/functions/fix_one_rspec_test.rb:
+  :source_md5: acee38a55b20b9f47a81da0bc1fcad47
+lib/llm/functions/get_files_list.rb:
+  :source_md5: 07f3776097d7715a3388c38d786efad7
+lib/llm/functions/get_gem_files_list.rb:
+  :source_md5: c8bdf1dc047fd49027802242c85de62d
+lib/llm/functions/google_search.rb:
+  :source_md5: 4fb2352e02ae16544204bea7adeb7e79
+lib/llm/functions/make_new_file.rb:
+  :source_md5: 7ff202242fe418dccd902949256a450d
+lib/llm/functions/open_url.rb:
+  :source_md5: dfcb24585b57fe414cdd7e773c87c4ef
+lib/llm/functions/overwrite_file.rb:
+  :source_md5: 7c4e8d778e45018be866b5c3c99a4276
+lib/llm/functions/read_file.rb:
+  :source_md5: ccfea922951cd3a0ec50f38817ad3596
+lib/llm/functions/record_lgtm.rb:
+  :source_md5: 1096632e1893b5035997d8df24343c61
+lib/llm/functions/report_bug.rb:
+  :source_md5: 3cf3b36bbf1415441fc0c367b530ce56
+lib/llm/functions/switch_assignee.rb:
+  :source_md5: e53444bab8a86f8f4de1f0106a4ab0a7
+lib/llm/message_container.rb:
+  :source_md5: b6baa6740dfeffb8bccf8f04e7ea5b4e
