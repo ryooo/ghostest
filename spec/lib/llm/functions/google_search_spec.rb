@@ -50,7 +50,7 @@ RSpec.describe Llm::Functions::GoogleSearch do
       end
 
       it 'returns an array of search results' do
-        expect(google_search.execute_and_generate_message({ search_word: search_word })).to eq([])
+        expect(google_search.execute_and_generate_message({ search_word: })).to eq([])
       end
 
       context 'and the search results are not empty' do
@@ -58,11 +58,11 @@ RSpec.describe Llm::Functions::GoogleSearch do
         let(:search_results) { double('SearchResults', items: [item]) }
 
         it 'returns an array of search results with the correct format' do
-          expect(google_search.execute_and_generate_message({ search_word: search_word })).to eq([{ title: 'Test Title', url: 'http://test.com', snippet: 'Test Snippet' }])
+          expect(google_search.execute_and_generate_message({ search_word: })).to eq([{ title: 'Test Title', url: 'http://test.com', snippet: 'Test Snippet' }])
         end
 
         it 'correctly extracts the title, url, and snippet from the search results' do
-          result = google_search.execute_and_generate_message({ search_word: search_word })[0]
+          result = google_search.execute_and_generate_message({ search_word: })[0]
           expect(result[:title]).to eq('Test Title')
           expect(result[:url]).to eq('http://test.com')
           expect(result[:snippet]).to eq('Test Snippet')

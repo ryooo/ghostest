@@ -66,10 +66,10 @@ module Llm
           chat_message_io.write(content)
         else
           # エラー発生か、function callingの回数が多すぎる場合は、他エージェントに相談する
-          functions = args[:functions].select { |f| [
-            "switch_assignee",
-            "report_bug",
-          ].include?(f.function_name.to_s) }
+          functions = args[:functions].select do |f| %w[
+            switch_assignee
+            report_bug
+          ].include?(f.function_name.to_s) end
           ret = self.chat(parameters: args.merge({
                                                    messages: message_container.to_capped_messages,
                                                    functions: functions.map { |f| f.definition },

@@ -11,7 +11,7 @@ module Ghostest
 
     def save_as_updated!(source_path)
       source_md5 = Digest::MD5.hexdigest(File.read(source_path))
-      @test_condition[source_path] = { source_md5: source_md5 }
+      @test_condition[source_path] = { source_md5: }
 
       File.write(@language_klass.test_condition_yml_path, YAML.dump(@test_condition))
     end

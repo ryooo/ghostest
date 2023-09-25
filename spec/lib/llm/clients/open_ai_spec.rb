@@ -7,7 +7,7 @@ RSpec.describe Llm::Clients::OpenAi do
     let(:api_key) { 'test_key' }
     let(:uri_base) { 'https://openai.com/openai/deployments/chat/completions' }
 
-    subject { described_class.new(timeout: timeout) }
+    subject { described_class.new(timeout:) }
 
     before do
       allow(ENV).to receive(:fetch).with('OPENAI_API_VERSION').and_return(api_version)
@@ -15,7 +15,7 @@ RSpec.describe Llm::Clients::OpenAi do
     end
 
     it 'initializes a new OpenAI client with necessary parameters' do
-      expect(OpenAI::Client).to receive(:new).with(api_version: api_version, access_token: api_key, uri_base: uri_base, request_timeout: timeout)
+      expect(OpenAI::Client).to receive(:new).with(api_version:, access_token: api_key, uri_base:, request_timeout: timeout)
       subject
     end
 
@@ -23,7 +23,7 @@ RSpec.describe Llm::Clients::OpenAi do
       subject { described_class.new }
 
       it 'sets the request_timeout to the default value of 300' do
-        expect(OpenAI::Client).to receive(:new).with(api_version: api_version, access_token: api_key, uri_base: uri_base, request_timeout: 300)
+        expect(OpenAI::Client).to receive(:new).with(api_version:, access_token: api_key, uri_base:, request_timeout: 300)
         subject
       end
     end
