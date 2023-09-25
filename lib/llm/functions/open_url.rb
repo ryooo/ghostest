@@ -1,8 +1,12 @@
 module Llm
   module Functions
     class OpenUrl < Base
-      def self.definition
-        return @definition if @definition.present?
+      def function_name
+        :open_url
+      end
+
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,
@@ -26,6 +30,9 @@ module Llm
       end
 
       def execute_and_generate_message(args)
+        if args[:url].nil? || args[:url].empty?
+          raise "url is required"
+        end
 
         charset = nil
         html = URI.open(Addressable::URI.parse(args[:url]).display_uri.to_s) do |f|
@@ -40,7 +47,7 @@ module Llm
           chunks = splitter.chunks(page_contents)
 
           summaries = []
-          azure_open_ai = Llm::Client::AzureOpenAi.new
+          azure_open_ai = Llm::Clients::AzureOpenAi.new
           chunks.each do |chunk|
             ret = azure_open_ai.chat(parameters: {
               messages: [
@@ -54,7 +61,11 @@ module Llm
                 },
               ],
             })
-            summaries << ret.dig("choices", 0, "message", "content")
+            summary = ret.dig("choices", 0, "message", "content")
+            if summary.nil?
+              raise "Azure OpenAI failed to summarize the content"
+            end
+            summaries << summary
           end
           page_contents = summaries.join("\n\n")
         end

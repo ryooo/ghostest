@@ -1,8 +1,12 @@
 module Llm
   module Functions
     class ReadFile < Base
-      def self.definition
-        return @definition if @definition.present?
+      def function_name
+        :read_file
+      end
+
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,

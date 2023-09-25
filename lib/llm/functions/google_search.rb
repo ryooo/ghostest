@@ -1,15 +1,19 @@
 module Llm
   module Functions
     class GoogleSearch < Base
+      def function_name
+        :google_search
+      end
+
       def self.search_client
-        return @search_client if @search_client.present?
+        return @search_client unless @search_client.nil?
 
         @search_client = GoogleCustomSearch.new
         @search_client
       end
 
-      def self.definition
-        return @definition if @definition.present?
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,
@@ -29,6 +33,9 @@ module Llm
       end
 
       def execute_and_generate_message(args)
+        if args[:search_word].nil? || args[:search_word].empty?
+          raise Ghostest::Error.new("Search word is empty")
+        end
         search_results = self.class.search_client.search(args[:search_word], gl: 'jp')
         ret = search_results.items.map do |item|
           {

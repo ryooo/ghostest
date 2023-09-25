@@ -1,8 +1,12 @@
 module Llm
   module Functions
     class GetFilesList < Base
-      def self.definition
-        return @definition if @definition.present?
+      def function_name
+        :get_files_list
+      end
+
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,
@@ -18,7 +22,7 @@ module Llm
       def execute_and_generate_message(args)
         files_list = Dir.glob("**/*.{rb,yml}")
 
-        {files_list:}
+        { files_list: }
       end
     end
   end

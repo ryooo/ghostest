@@ -1,8 +1,12 @@
 module Llm
   module Functions
     class ExecRspecTest < Base
-      def self.definition
-        return @definition if @definition.present?
+      def function_name
+        :exec_rspec_test
+      end
+
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,
@@ -22,10 +26,13 @@ module Llm
       end
 
       def execute_and_generate_message(args)
+        if args[:file_or_dir_path].nil? || args[:file_or_dir_path].empty?
+          raise Ghostest::Error.new("Please specify the file or directory path.")
+        end
         script = "bundle exec rspec '#{args['file_or_dir_path']}'"
         stdout, stderr, status = Open3.capture3(script)
 
-        {stdout:, stderr:, exit_status: status.exitstatus}
+        { stdout:, stderr:, exit_status: status.exitstatus }
       end
     end
   end

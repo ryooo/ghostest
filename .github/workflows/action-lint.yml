@@ -1,0 +1,17 @@
+name: action-lint
+
+on:
+  pull_request:
+    paths:
+      - '.github/**'
+
+jobs:
+  action-lint:
+    name: action-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: lint
+        run: |
+          actionlint -color

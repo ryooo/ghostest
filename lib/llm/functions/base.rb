@@ -1,12 +1,12 @@
 module Llm
   module Functions
     class Base
-      def self.function_name
-        self.name.split("::").last.underscore
+      def function_name
+        nil
       end
 
-      def function_name
-        self.class.function_name;
+      def stop_llm_call?
+        false
       end
     end
   end

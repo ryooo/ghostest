@@ -14,9 +14,11 @@ gem 'google-apis-customsearch_v1'
 gem 'colorize'
 gem 'pry'
 gem 'i18n'
+gem 'indifference'
+gem 'erb'
+gem 'bundler'
 
 group :development, :test do
-  gem 'bundler'
   gem 'rake'
   gem 'rspec', "~> 3.12"
   gem 'rubocop'

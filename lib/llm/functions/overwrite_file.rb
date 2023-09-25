@@ -1,8 +1,12 @@
 module Llm
   module Functions
     class OverwriteFile < Base
-      def self.definition
-        return @definition if @definition.present?
+      def function_name
+        :overwrite_file
+      end
+
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,
@@ -19,16 +23,19 @@ module Llm
                 description: I18n.t("functions.#{self.function_name}.parameters.new_text"),
               },
             },
-            required: [:filepath, :start_line_number, :end_line_number, :new_text],
+            required: [:filepath, :new_text],
           },
         }
         @definition
       end
 
       def execute_and_generate_message(args)
+        unless File.exist?(args[:filepath])
+          raise Ghostest::Error.new("File not found: #{args[:filepath]}")
+        end
         File.write(args[:filepath], args[:new_text])
 
-        {result: :success}
+        { result: :success }
       end
     end
   end

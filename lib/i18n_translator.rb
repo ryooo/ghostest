@@ -1,33 +1,46 @@
+require 'digest'
 class I18nTranslator
-  def self.update_dictionary!
-    ja_file_paths = I18n.load_path.select{|path| path.match(/ja\.yml$/) }
-    ja_file_paths.each do |ja_file_path|
-      ja = YAML.load(File.read(ja_file_path))
-      en_file_path = ja_file_path.gsub(/ja\.yml$/, "en.yml")
-      en = File.exist?(en_file_path) ? YAML.load(File.read(en_file_path)) : {}
-      en = deep_translate(ja, en)
-      File.write(en_file_path, YAML.dump(en))
+  def self.update_dictionary!(from_locale, to_locales)
+    from_file_paths = I18n.load_path.select { |path| path.match(/#{from_locale}\.yml$/) }
+    from_file_paths.each do |from_file_path|
+      to_locales.each do |to_locale|
+        from_hash = {
+          to_locale.to_s => YAML.load(File.read(from_file_path))[from_locale.to_s],
+        }
+        to_file_path = from_file_path.gsub(/#{from_locale}\.yml$/, "#{to_locale}.yml")
+        to_hash = File.exist?(to_file_path) ? YAML.load(File.read(to_file_path)) : {}
+        to_hash = deep_translate(from_hash, to_hash, from_locale, to_locale)
+        File.write(to_file_path, YAML.dump(to_hash))
+      end
     end
   end
 
-  def self.deep_translate(ja, en)
-    ja.each do |ja_k, v|
-      en_k = ja_k == :ja.to_s ? :en.to_s : ja_k
-      if v.is_a?(Hash)
-        en[en_k] = deep_translate(v, en[en_k] || {})
+  def self.deep_translate(from_hash, to_hash, from_locale, to_locale)
+    ret = {}
+    from_hash.each do |key, val|
+      if val.is_a?(Hash)
+        h = deep_translate(val, to_hash[key] || {}, from_locale, to_locale)
+        ret[key] = Hash[h.sort]
       else
-        if en[en_k].blank?
-          en[en_k] = translate(v)
+        md5_key = "#{key}_md5"
+        md5 = ::Digest::MD5.hexdigest(val)
+        if to_hash[md5_key].nil? || to_hash[md5_key] != md5
+          ret[md5_key] = md5
+          ret[key] = translate(val)
+        else
+          ret[md5_key] = to_hash[md5_key]
+          ret[key] = to_hash[key]
         end
       end
     end
-    en
+    ret
   end
 
   def self.translator
-    @translator ||= Llm::Client::AzureOpenAi.new
+    @translator ||= ::Llm::Clients::AzureOpenAi.new
   end
 
+  # don't need to test this method
   def self.translate(str)
     # DeepLのほうが望ましいがLLMで代用
     ret = self.translator.chat(parameters: {
@@ -42,8 +55,8 @@ class I18nTranslator
         {
           role: "user",
           content: str,
-        }
-      ]
+        },
+      ],
     })
     translated = ret.dig("choices", 0, "message", "content")
     puts("#{str} => #{translated.green}")

@@ -1,0 +1,236 @@
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2.1
+  DisabledByDefault: true
+  DisplayCopNames: true
+
+########################
+# Indentation
+########################
+
+# [MUST] Use two spaces for 1-level of indent. Do not use the horizontal tab character.
+Layout/IndentationStyle:
+  EnforcedStyle: spaces
+Layout/IndentationWidth:
+  Enabled: true
+Layout/IndentationConsistency:
+  Enabled: true
+Layout/InitialIndentation:
+  Enabled: true
+Layout/CommentIndentation:
+  Enabled: true
+
+########################
+# Whitespace
+########################
+
+# [MUST] Do not put whitespace at the end of a line.
+Layout/TrailingWhitespace:
+  Enabled: true
+
+########################
+# Empty lines
+########################
+
+# [MUST] Leave exactly one newline at the end of a file.
+Layout/TrailingEmptyLines:
+  EnforcedStyle: final_newline
+
+########################
+# Numbers
+########################
+
+# [SHOULD] Use underscores to separate every three-digits when writing long numbers.
+Style/NumericLiterals:
+  MinDigits: 7
+  Strict: true
+
+########################
+# Strings
+########################
+
+# [SHOULD] Use `''` to write empty strings.
+Style/EmptyLiteral:
+  Enabled: true
+
+# [SHOULD] Use parentheses to write strings by `%` notation.  You can use any kind of parentheses.  In the following cases you can use non-parentheses characters for punctuations.
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+# [MUST] Do not write only `Object#to_s` in string interpolation, such as `"#{obj.to_s}"`.
+Style/RedundantInterpolation:
+  Enabled: true
+
+########################
+# Arrays
+########################
+
+# [MUST] If you write an array literal just after an assignment operator such as `=`, obey the following form denoted as "good".
+Layout/MultilineArrayBraceLayout:
+  EnforcedStyle: symmetrical
+
+# [SHOULD] In the multi-line array literal, put `,` after the last item.
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+# [SHOULD] Use general delimited input (percent) syntax `%w(...)` or `%W(...)` for word arrays.
+Style/WordArray:
+  EnforcedStyle: percent
+
+########################
+# Hashes
+########################
+
+# [MUST] Put whitespaces between `{` and the first key, and between the last value and `}` when writing hash literals on a single line.
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space
+
+# [MUST] Use new hash syntax in Ruby 1.9+ (`{ foo: 42 }`) if all keys can be written in that syntax:
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+# [MUST] If you write a hash literal just after an assignment operator, such as `=`, obey the following form denoted as "good".
+# [SHOULD] In the multi line hash literal, put `,` after the last item.
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+# [SHOULD] (Ruby 1.9+) If all the keys of hash literals are Symbol literals, use the form of `{ key: value }`.  Put whitespace after `:`.
+Layout/SpaceAfterColon:
+  Enabled: true
+
+########################
+# Operations
+########################
+
+# [SHOULD] Put whitespace around operators, except for `**`.
+Layout/SpaceAroundOperators:
+  Enabled: true
+
+# [MUST] Do not use `and`, `or`, and `not`.
+Style/AndOr:
+  Enabled: true
+
+# [MUST] Do not nest conditional operators.
+Style/NestedTernaryOperator:
+  Enabled: true
+
+# [MUST] Do not write conditional operators over multiple lines.
+Style/MultilineTernaryOperator:
+  Enabled: true
+
+########################
+# Assignments
+########################
+
+# [MUST] Parallel assignments can only be used for assigning literal values or results of methods without arguments, and for exchanging two variables or attributes.
+Style/ParallelAssignment:
+  Enabled: true
+
+########################
+# Control structures
+########################
+
+# [SHOULD] Use `unless condition`, instead of `if !condition`.
+Style/NegatedIf:
+  Enabled: true
+
+# [SHOULD] Use `until condition`, instead of `while !condition`.
+Style/NegatedWhile:
+  Enabled: true
+
+# [SHOULD] Do not use `else` for `unless`.
+Style/UnlessElse:
+  Enabled: true
+
+# [MUST] Do not use `then` and `:` for the condition clause of `if`, `unless`, and `case`.
+Style/WhenThen:
+  Enabled: true
+
+# [MUST] Do not use `do` and `:` for the condition clause of `while` and `until`.
+Style/WhileUntilDo:
+  Enabled: true
+
+# [SHOULD] Do not write a logical expressions combined by `||` in the condition clause of `unless` and `until`.
+# [SHOULD] Use modifier forms, if conditions and bodies are short.
+Style/WhileUntilModifier:
+  Enabled: true
+
+########################
+# Method calls
+########################
+
+# [MUST] Use brace block for a method call written in one line.
+Style/BlockDelimiters:
+  EnforcedStyle: line_count_based
+
+# [MUST] Put a whitespace before `{` of brace blocks.
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+# [MUST] For a brace block written in one line, put whitespace between `{`, `}` and the inner contents.
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+
+########################
+# BEGIN AND END
+########################
+
+# [MUST] Do not use `BEGIN` and `END` blocks.
+Style/BeginBlock:
+  Enabled: true
+Style/EndBlock:
+  Enabled: true
+
+########################
+# Module and Class definitions
+########################
+
+# [MUST] Use `alias_method` instead of `alias` to define aliases of methods.
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+# [MUST] use `attr_accessor`, `attr_reader`, and `attr_writer` to define accessors instead of `attr`.
+Style/Attr:
+  Enabled: true
+
+# [MUST] In definitions of class methods, use `self.` prefix of method name to reduce the indentation level. However, it is fine to use `class << self` when you want to define both public and private class methods.
+Style/ClassMethods:
+  Enabled: true
+
+# [MUST] If you use `private`, `protected`, and `public` without any arguments, align the lines of these method calls to their associated method definition. Put empty lines around the visibility-change methods.
+Style/TrailingBodyOnMethodDefinition:
+  Enabled: true
+
+########################
+# Method definitions
+########################
+
+# [MUST] On method definition, do not omit parentheses of parameter list, except for methods without parameters.
+Style/MethodDefParentheses:
+  Enabled: true
+
+# [MUST] Do not put whitespace between method name and the parameter list.
+Layout/SpaceAfterMethodName:
+  Enabled: true
+
+########################
+# Variables
+########################
+
+# [MUST] Do not introduce new global variables (`$foo`) for any reason.
+Style/GlobalVars:
+  Enabled: true
+
+# [MUST] Do not use class variables (`@@foo`) for any reasons.  Use `class_attribute` instead.
+Style/ClassVars:
+  Enabled: true
+
+Lint/Debugger:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/CaseIndentation:
+  EnforcedStyle: end

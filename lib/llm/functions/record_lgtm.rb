@@ -1,23 +1,38 @@
 module Llm
   module Functions
     class RecordLgtm < Base
+      def function_name
+        :record_lgtm
+      end
+
       def initialize
         @lgtm = false
+      end
+
+      def stop_llm_call?
+        # stop always
+        true
       end
 
       def lgtm?
         !!@lgtm
       end
 
-      def self.definition
-        return @definition if @definition.present?
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,
           description: I18n.t("functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
-            properties: {},
+            properties: {
+              message: {
+                type: :string,
+                description: I18n.t("functions.#{self.function_name}.parameters.message"),
+              },
+            },
+            required: [:message],
           },
         }
         @definition
@@ -26,7 +41,7 @@ module Llm
       def execute_and_generate_message(args)
         @lgtm = true
 
-        {result: "success"}
+        { message: args[:message] }
       end
     end
   end

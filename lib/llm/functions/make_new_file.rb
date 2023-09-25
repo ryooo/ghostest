@@ -1,8 +1,12 @@
 module Llm
   module Functions
     class MakeNewFile < Base
-      def self.definition
-        return @definition if @definition.present?
+      def function_name
+        :make_new_file
+      end
+
+      def definition
+        return @definition unless @definition.nil?
 
         @definition = {
           name: self.function_name,
@@ -32,7 +36,7 @@ module Llm
         end
         File.write(args[:filepath], args[:file_contents])
 
-        {result: "success"}
+        { result: "success" }
       end
     end
   end

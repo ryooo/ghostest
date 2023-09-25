@@ -1,0 +1,26 @@
+language: ruby
+
+watch_files:
+  - app/**/*.rb
+  - lib/**/*.rb
+
+agents:
+  Mr_test_designer:
+    role: test_designer
+    color: light_yellow
+    system_prompt: |-
+      <%= I18n.t("agents.test_designer.ruby.default_system_prompt").gsub("\n", "\n      ") %>
+      - Ruby version assumes 3 series.
+
+  Mr_test_programmer:
+    role: test_programmer
+    color: cyan
+    system_prompt: |-
+      <%= I18n.t("agents.test_programmer.ruby.default_system_prompt").gsub("\n", "\n      ") %>
+      - Ruby version assumes 3 series.
+
+  Mr_reviewer:
+    role: reviewer
+    color: green
+    system_prompt: |-
+      <%= I18n.t("agents.reviewer.ruby.default_system_prompt").gsub("\n", "\n      ") %>
