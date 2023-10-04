@@ -10,13 +10,13 @@ module Llm
 
         @definition = {
           name: self.function_name,
-          description: I18n.t("functions.#{self.function_name}.description"),
+          description: I18n.t("ghostest.functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               message: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.message"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.message"),
               },
             },
             required: [:message],

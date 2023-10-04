@@ -31,13 +31,13 @@ RSpec.describe Llm::Functions::RecordLgtm do
     it 'returns the correct function definition' do
       expected_definition = {
         name: :record_lgtm,
-        description: I18n.t('functions.record_lgtm.description'),
+        description: I18n.t('ghostest.functions.record_lgtm.description'),
         parameters: {
           type: :object,
           properties: {
             message: {
               type: :string,
-              description: I18n.t('functions.record_lgtm.parameters.message'),
+              description: I18n.t('ghostest.functions.record_lgtm.parameters.message'),
             },
           },
           required: [:message],

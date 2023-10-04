@@ -35,5 +35,14 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "rubocop", "~> 1.56"
+  spec.add_dependency 'ruby-openai', '~> 5.1.0'
+  spec.add_dependency 'html2markdown', '~> 0.0.3'
+  spec.add_dependency 'addressable', '~> 2.8'
+  spec.add_dependency 'baran', '~> 0.1.8'
+  spec.add_dependency 'tiktoken_ruby', '~> 0.0.5'
+  spec.add_dependency 'google-apis-customsearch_v1', '~> 0.15.0'
+  spec.add_dependency 'colorize', '~> 1.1.0'
+  spec.add_dependency 'i18n', '~> 1.14.1'
+  spec.add_dependency 'indifference', '~> 0.0.1'
 
 end

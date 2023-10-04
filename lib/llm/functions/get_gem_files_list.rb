@@ -14,13 +14,13 @@ module Llm
 
         @definition = {
           name: self.function_name,
-          description: I18n.t("functions.#{self.function_name}.description"),
+          description: I18n.t("ghostest.functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               gem_name: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.gem_name"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.gem_name"),
                 enum: self.class.gem_name_enums,
               },
             },

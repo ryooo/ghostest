@@ -22,7 +22,7 @@ module Llm
         message_container.add_system_message(self.agent_config.system_prompt.gsub("%{source_path}", source_path).gsub("%{test_path}", test_path))
 
         if switch_assignee_function.messages.size > 0
-          message_container.add_system_message(I18n.t('agents.reviewer.last_assignee_comment',
+          message_container.add_system_message(I18n.t('ghostest.agents.reviewer.last_assignee_comment',
                                                       last_assignee: switch_assignee_function.last_assignee,
                                                       comment: switch_assignee_function.last_message))
         end

@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+lib = File.expand_path('../lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require "i18n"
+config = File.expand_path('../config', __dir__)
+I18n.load_path += Dir["#{config}/locales/**/*.yml"]
+
+require 'ghostest'
+require 'optparse'
+require 'fileutils'
+
+$stdout.sync = true
+$stderr.sync = true
+
+config_path = nil
+
+options = {
+  llm: :open_ai,
+  use_web: false,
+  debug: false,
+}
+
+ARGV.options do |opt|
+  opt.on('-c', '--config') { |v| config_path = v }
+  opt.on('-a', '--use-azure') { options[:llm] = :azure_open_ai }
+  opt.on('-w', '--use-web') { options[:use_web] = true }
+  opt.on('', '--debug') { options[:debug] = true }
+
+  opt.on('-v', '--version') do
+    puts Ghostest::VERSION
+    exit
+  end
+
+  opt.on('-h', '--help') do
+    puts opt.help
+    exit 0
+  end
+
+  opt.parse!
+
+rescue StandardError => e
+  warn("[#{e.class.name}] #{e.message}")
+  puts "\t" + e.backtrace.join("\n\t") unless e.is_a?(OptionParser::ParseError)
+  exit 1
+end
+
+begin
+  required_envs = case options[:llm]
+                  when :azure_open_ai
+                    %w[AZURE_API_VERSION AZURE_OPENAI_API_KEY AZURE_API_BASE AZURE_DEPLOYMENT_NAME]
+                  when :open_ai
+                    %w[OPENAI_API_VERSION OPENAI_API_KEY]
+                  end
+  required_envs.each do |required_env|
+    if ENV[required_env].nil? || ENV[required_env].empty?
+      warn("[ERROR] #{required_env} is required as a environment variable")
+      exit 1
+    end
+  end
+  logger = Ghostest::Logger.instance
+  logger.debug = options[:debug]
+  client = Ghostest::Manager.new(Ghostest::Config.load(config_path, options))
+  client.start_work!
+rescue StandardError => e
+  if options[:debug]
+    raise e
+  else
+    warn("[ERROR] #{[e.message, e.backtrace.first].join("\n\t")}")
+    exit 1
+  end
+end
+
+exit 0

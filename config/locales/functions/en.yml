@@ -1,146 +1,149 @@
 ---
 en:
-  functions:
-    add_to_memory:
-      description: Remember as a working memory and always send it in subsequent prompts.
-      description_md5: c0410194e6fb254d6e8dd751766c6d98
-      parameters:
-        contents_to_memory: Specify the content you want to remember.
-        contents_to_memory_md5: 8500148adbf70b90efe906be8b001d08
-      system_message_prefix: |-
-        The following is the knowledge you gained from previous processes.
-        ```
-        %{contents_to_memory}
-        ```
-      system_message_prefix_md5: b40d6abedd718446f161d9bdf9ac2eb0
-    exec_rspec_test:
-      description: I will run the rspec test.
-      description_md5: 8c32d093f8f5e124cb410ca005df3742
-      parameters:
-        file_or_dir_path: |-
-          You will specify the file path of the spec file.
-          If a directory path is specified, all spec files in the directory will be executed.
-        file_or_dir_path_md5: e0cd54effe14f94ea398028438747c7c
-    fix_one_rspec_test:
-      description: |-
-        We investigate and correct the cause if the specified test does not pass.
-        Use this function when you want to fix errors one by one.
-      description_md5: 577dba441f3459ae60f5c6ec87ba1efc
-      parameters:
-        file_path: Specify the file path of the spec file.
-        file_path_md5: 573ba67ead359e6f30e75c24b8163556
-        line_num: |-
-          Specify the location where the test to be corrected is described (the line number at the beginning of the target test in the spec file).
-          Values less than or equal to 0 cannot be specified for this parameter.
-        line_num_md5: 237d54a160770e0be5c7d5fbd52349b8
-      system_prompt: |-
-        You are an excellent Ruby programmer.
-        Your job is to implement rspec tests for "%{source_path}" in "%{test_path}".
+  ghostest:
+    functions:
+      add_to_memory:
+        description: Remember as a working memory and always send it in subsequent
+          prompts.
+        description_md5: c0410194e6fb254d6e8dd751766c6d98
+        parameters:
+          contents_to_memory: Specify the content you want to remember.
+          contents_to_memory_md5: 8500148adbf70b90efe906be8b001d08
+        system_message_prefix: |-
+          The following is the knowledge you gained from previous processes.
+          ```
+          %{contents_to_memory}
+          ```
+        system_message_prefix_md5: b40d6abedd718446f161d9bdf9ac2eb0
+      exec_rspec_test:
+        description: I will run the rspec test.
+        description_md5: 8c32d093f8f5e124cb410ca005df3742
+        parameters:
+          file_or_dir_path: |-
+            Specify the file path of the spec file.
+            If a directory path is specified, all spec files in the directory will be executed.
+          file_or_dir_path_md5: e0cd54effe14f94ea398028438747c7c
+      fix_one_rspec_test:
+        description: |-
+          We investigate and correct the cause if the specified test does not pass.
+          Use this function when you want to correct errors one by one.
+        description_md5: 577dba441f3459ae60f5c6ec87ba1efc
+        parameters:
+          file_path: Specify the file path of the spec file.
+          file_path_md5: 573ba67ead359e6f30e75c24b8163556
+          line_num: |-
+            Specify the location where the test to be corrected is described (the line number at the beginning of the target test in the spec file).
+            Values less than or equal to 0 cannot be specified for this parameter.
+          line_num_md5: 237d54a160770e0be5c7d5fbd52349b8
+        system_prompt: |-
+          You are an excellent Ruby programmer.
+          Your task is to implement rspec tests for "%{source_path}" in "%{test_path}".
 
-        ## Workflow
-        Please implement the test code according to the following flow.
-        1. Before implementing the test code, check the implementation of the target class.
-        If there is not enough information to understand the implementation, follow the steps below.
-          - If there are related classes in the repository, refer to their implementation.
-          - If there are no related classes in the repository, determine the gem name from the Gemfile and refer to the implementation in the gem file.
-        2. If the file for the output rspec test already exists, check its contents and confirm what kind of tests are currently implemented.
-        3. Considering the comments of the test designer and the current implementation, list the necessary tasks for the test file and send them to the add_to_memory function.
-        4. Actually implement or modify the test file.
-        5. Run rspec and check the results.
-        If a test case results in an error, investigate the cause of the error and correct the test case to work correctly.
-        6. Once all test cases pass, use the switch_assignee function to explain the summary of the response to the reviewer.
-        If you can't figure out the cause after several modifications and the test cases don't pass, consult the test designer using the switch_assignee function.
+          ## Workflow
+          Please follow the flow below to implement the test code.
+          1. Before implementing the test code, check the implementation of the target class.
+          If there is not enough information to understand the implementation, follow the steps below:
+            - If there are related classes in the repository, refer to their implementation.
+            - If there are no related classes in the repository, determine the gem name from the Gemfile and refer to the implementation in the gem file.
+          2. If the file for the rspec test to be output already exists, check its contents and see what tests are currently implemented.
+          3. Considering the comments of the test designer and the current implementation, list the necessary tasks for the test file and send them to the add_to_memory function.
+          4. Actually implement or modify the test file.
+          5. Run rspec and check the results.
+          If a test case results in an error, investigate the cause of the error and correct the test case to work properly.
+          6. Once all test cases have passed, use the switch_assignee function to explain the summary of the response to the reviewer.
+          If you cannot figure out the cause after several modifications and the test case does not pass, consult the test designer using the switch_assignee function.
 
-        ## Notes
-        - Do not implement the test if it is stated that the test should be skipped.
-        - If there is useful information that you want to remember, such as a reference implementation or a design policy obtained during the work, remember it using the add_to_memory function.
-        - All dummy files related to the test should be created under the spec/dummy folder.
-        - File names and directory names should be created in snake_case.
-        - Do not use the hash rocket notation "{key => val}", use the "{key: val}" notation for hashes.
-        - If you want to expand variables in a Ruby string, you need to enclose the string in double quotes. '#{source_locale}.yml' will not be expanded, but "#{source_locale}.yml" will be.
-        - If you are using a class that calls an external API, create a mock.
-        - Be sure to delete any files or directories created during the test within the test.
-        - Always create a mock for code that executes an external API.
-        - Do not implement overly detailed test cases, but test the output and what side effects occur with various inputs.
-        - As the sole programmer, you are responsible for determining the program's policy. If there is a problem with the response, solve the problem yourself without asking other workers.
-        - Do not modify the class under test.
-        If there are clear implementation problems that cannot be passed even with ingenuity on the test side, use the report_bug function to report to the developer of the test target class in Japanese.
-        - At the end of the work, always use either the switch_assignee function or the report_bug function.
+          ## Caution
+          - If it is stated to skip the test, do not implement the test.
+          - If there is useful information that you want to remember, such as a reference implementation or a design policy obtained during work, use the add_to_memory function to remember it.
+          - All dummy files related to the test should be created under the spec/dummy folder.
+          - File names and directory names should be created in snake_case.
+          - Do not use the hash rocket "{key => val}" notation for hashes, use the "{key: val}" notation.
+          - If you want to expand variables within a Ruby string, you need to enclose the string in double quotes. '#{source_locale}.yml' won't expand, but "#{source_locale}.yml" will.
+          - If you use a class that calls an external API, create a mock.
+          - Always delete the files and directories created during the test within the test.
+          - Always create a mock for code that executes an external API.
+          - Do not implement too detailed test cases, but test the output for various inputs and what side effects occur.
+          - As the only programmer, you have the responsibility to determine the policy of the program.
+          If there is a problem with the response, do not ask other workers but solve the problem yourself.
+          - Do not modify the class under test.
+          If there are obvious implementation problems that cannot be passed even with ingenuity on the test side, use the report_bug function to report in Japanese to the developer of the class under test.
+          - At the end of the work, always use either the switch_assignee function or the report_bug function.
 
-        Thank you.
-      system_prompt_md5: 154f617e2edc96bbc5d2ebffce9e8f02
-    get_files_list:
-      description: Retrieve the file list from the repository.
-      description_md5: d808624b42b259bcbff9bbd5125f5000
-    get_gem_files_list:
-      description: Retrieve the file list of the gem.
-      description_md5: 4cfe8e95341aa19330b054f72c2d8625
-      parameters:
-        gem_name: Specify the name of the gem.
-        gem_name_md5: 3cdadda91f35c963815bd887ef4dcd40
-    google_search:
-      description: I will search on Google.
-      description_md5: e727ea167adfed785121684928794e85
-      parameters:
-        search_word: Specify the search string.
-        search_word_md5: 51ecd78c455270475d51e4693d187581
-    make_new_file:
-      description: I will create a new test file.
-      description_md5: a97a50a0bb11c649e25196a7d6b945d7
-      parameters:
-        file_contents: Specify the contents of the test file.
-        file_contents_md5: 8a87f263abc645c5a94b26111130b710
-        filepath: Specify the path of the test file. If the directory does not exist,
-          create a directory.
-        filepath_md5: 68f619d2148082586fd08b7e05d19f6e
-    open_url:
-      description: Retrieve the content of HTML.
-      description_md5: 436de6ca8dc743c62d06fb1078cdfa23
-      parameters:
-        url: Specify the URL to retrieve the HTML.
-        url_md5: d8093398bee562e96e65c1220ae12432
-        what_i_want_to_know: Please specify the details you want to know.
-        what_i_want_to_know_md5: be532eea4c61ddede9d127b59b1ae396
-      summary_system: The content sent from the user is from a certain webpage. Please
-        extract useful information by comparing it with the content the user wants
-        to know. The content the user wants to know is as follows. ``` %{purpose}
-        ```
-      summary_system_md5: 4dbc32620cce79b998429d7d2597f38f
-    overwrite_file:
-      description: I will rewrite the contents of the test file.
-      description_md5: 41f2c5f11373e9c69537d341234070de
-      parameters:
-        filepath: Specify the path of the test file.
-        filepath_md5: 680f8111e031492dab36e5c66955f52c
-        new_text: Specify all the text within the test file after the overwrite.
-        new_text_md5: f0b47c33618f4a2c70da92aa9379edab
-    read_file:
-      description: Retrieve the contents of the file.
-      description_md5: 7022749c13c9bd200cf066a67cbe08fd
-      parameters:
-        filepath: Specify the file path.
-        filepath_md5: fa4e5c60196b0b625554b1f65f95b9c1
-    record_lgtm:
-      description: I will record the task as LGTM (Looks Good To Me).
-      description_md5: 9f01a0f4c412c42340137c4da7ce069d
-      parameters:
-        message: Specify the content that was confirmed.
-        message_md5: 87de856ba7b96099083e19e04433d0ad
-    report_bug:
-      description: We report bugs to the human test_programmer who implemented the
-        class under test.
-      description_md5: 9cfa7977aeaebb0eba7372584eecc268
-      parameters:
-        message: "Please write in Japanese the information that should be conveyed
-          to the test_programmer. \nIn your description, please specify the exact
-          location and issue, as well as your thoughts."
-        message_md5: cf3336751ef1d447da30f825effa3177
-    switch_assignee:
-      description: I will change the task assignee to a different agent.
-      description_md5: 9982c7a8643ea5f1e02c60a994e0c7f8
-      parameters:
-        message: Specify the message to request the next person in charge.
-        message_md5: eea20047498012fb789cde2cd99fd5ad
-        next_assignee: You will specify the "Name (Job Title)" of the next person
-          in charge from among those existing in the enum.
-        next_assignee_md5: e19e258ac000709a00359b3c7313c2bb
+          Thank you.
+        system_prompt_md5: 154f617e2edc96bbc5d2ebffce9e8f02
+      get_files_list:
+        description: Retrieve the file list from the repository.
+        description_md5: d808624b42b259bcbff9bbd5125f5000
+      get_gem_files_list:
+        description: Acquires the file list of the gem.
+        description_md5: 4cfe8e95341aa19330b054f72c2d8625
+        parameters:
+          gem_name: Specify the name of the gem.
+          gem_name_md5: 3cdadda91f35c963815bd887ef4dcd40
+      google_search:
+        description: I will search from Google.
+        description_md5: e727ea167adfed785121684928794e85
+        parameters:
+          search_word: Specify the search string.
+          search_word_md5: 51ecd78c455270475d51e4693d187581
+      make_new_file:
+        description: I will create a new test file.
+        description_md5: a97a50a0bb11c649e25196a7d6b945d7
+        parameters:
+          file_contents: Specify the contents of the test file.
+          file_contents_md5: 8a87f263abc645c5a94b26111130b710
+          filepath: Specify the path of the test file. If the directory does not exist,
+            create the directory.
+          filepath_md5: 68f619d2148082586fd08b7e05d19f6e
+      open_url:
+        description: Retrieve the contents of HTML.
+        description_md5: 436de6ca8dc743c62d06fb1078cdfa23
+        parameters:
+          url: Specify the URL to obtain the HTML.
+          url_md5: d8093398bee562e96e65c1220ae12432
+          what_i_want_to_know: Please specify the details you want to know.
+          what_i_want_to_know_md5: be532eea4c61ddede9d127b59b1ae396
+        summary_system: The content sent from users is from a certain webpage. Please
+          extract useful information from this in light of the content the user wants
+          to know. The content the user wants to know is as follows. ``` %{purpose}
+          ```
+        summary_system_md5: 4dbc32620cce79b998429d7d2597f38f
+      overwrite_file:
+        description: I will rewrite the contents of the test file.
+        description_md5: 41f2c5f11373e9c69537d341234070de
+        parameters:
+          filepath: Specify the path to the test file.
+          filepath_md5: 680f8111e031492dab36e5c66955f52c
+          new_text: Specify all the text within the test file after overwriting.
+          new_text_md5: f0b47c33618f4a2c70da92aa9379edab
+      read_file:
+        description: Retrieve the contents of the file.
+        description_md5: 7022749c13c9bd200cf066a67cbe08fd
+        parameters:
+          filepath: Specify the file path.
+          filepath_md5: fa4e5c60196b0b625554b1f65f95b9c1
+      record_lgtm:
+        description: I will record the task as LGTM.
+        description_md5: 9f01a0f4c412c42340137c4da7ce069d
+        parameters:
+          message: Specify the content that has been confirmed.
+          message_md5: 87de856ba7b96099083e19e04433d0ad
+      report_bug:
+        description: We report bugs to the human programmer who implemented the test
+          target class.
+        description_md5: 9cfa7977aeaebb0eba7372584eecc268
+        parameters:
+          message: |-
+            Please write in Japanese the information that should be conveyed to the programmer.
+            Please specify the exact location, the problem, and your thoughts in the description.
+          message_md5: cf3336751ef1d447da30f825effa3177
+      switch_assignee:
+        description: We will change the task assignee to a different agent.
+        description_md5: 9982c7a8643ea5f1e02c60a994e0c7f8
+        parameters:
+          message: Specify the message to request the next person in charge.
+          message_md5: eea20047498012fb789cde2cd99fd5ad
+          next_assignee: You specify the "Name (Job Type)" of the next person in charge
+            from among those that exist in the enum.
+          next_assignee_md5: e19e258ac000709a00359b3c7313c2bb

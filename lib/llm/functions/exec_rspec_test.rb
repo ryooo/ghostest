@@ -10,13 +10,13 @@ module Llm
 
         @definition = {
           name: self.function_name,
-          description: I18n.t("functions.#{self.function_name}.description"),
+          description: I18n.t("ghostest.functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               file_or_dir_path: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.file_or_dir_path"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.file_or_dir_path"),
               },
             },
             required: [:file_or_dir_path],

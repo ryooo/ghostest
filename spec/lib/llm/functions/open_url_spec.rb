@@ -13,17 +13,17 @@ RSpec.describe Llm::Functions::OpenUrl do
     it 'returns the correct hash' do
       expect(open_url.definition).to eq({
         name: :open_url,
-        description: I18n.t('functions.open_url.description'),
+        description: I18n.t('ghostest.functions.open_url.description'),
         parameters: {
           type: :object,
           properties: {
             url: {
               type: :string,
-              description: I18n.t('functions.open_url.parameters.url'),
+              description: I18n.t('ghostest.functions.open_url.parameters.url'),
             },
             what_i_want_to_know: {
               type: :string,
-              description: I18n.t('functions.open_url.parameters.what_i_want_to_know'),
+              description: I18n.t('ghostest.functions.open_url.parameters.what_i_want_to_know'),
             },
           },
           required: [:url, :what_i_want_to_know],

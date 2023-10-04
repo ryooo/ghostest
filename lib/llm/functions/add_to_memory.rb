@@ -14,13 +14,13 @@ module Llm
 
         @definition = {
           name: self.function_name,
-          description: I18n.t("functions.#{self.function_name}.description"),
+          description: I18n.t("ghostest.functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               contents_to_memory: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.contents_to_memory"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.contents_to_memory"),
               },
             },
             required: [:contents_to_memory],
@@ -33,7 +33,7 @@ module Llm
         if args[:contents_to_memory].nil? || args[:contents_to_memory].empty?
           raise "contents_to_memory is required"
         end
-        @message_container.add_system_message(I18n.t("functions.#{self.function_name}.system_message_prefix", contents_to_memory: args[:contents_to_memory]))
+        @message_container.add_system_message(I18n.t("ghostest.functions.#{self.function_name}.system_message_prefix", contents_to_memory: args[:contents_to_memory]))
         { result: 'success' }
       end
     end

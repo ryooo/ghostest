@@ -17,13 +17,13 @@ module Llm
 
         @definition = {
           name: self.function_name,
-          description: I18n.t("functions.#{self.function_name}.description"),
+          description: I18n.t("ghostest.functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               search_word: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.search_word"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.search_word"),
               },
             },
             required: [:search_word],

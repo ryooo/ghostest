@@ -51,18 +51,18 @@ RSpec.describe Llm::Functions::SwitchAssignee do
     it 'returns the correct function definition' do
       definition = {
         name: :switch_assignee,
-        description: I18n.t("functions.switch_assignee.description"),
+        description: I18n.t("ghostest.functions.switch_assignee.description"),
         parameters: {
           type: :object,
           properties: {
             next_assignee: {
               type: :string,
-              description: I18n.t("functions.switch_assignee.parameters.next_assignee"),
+              description: I18n.t("ghostest.functions.switch_assignee.parameters.next_assignee"),
               enum: ['Mr_reviewer(reviewer)'],
             },
             message: {
               type: :string,
-              description: I18n.t("functions.switch_assignee.parameters.message"),
+              description: I18n.t("ghostest.functions.switch_assignee.parameters.message"),
             },
           },
           required: [:assignee, :message],

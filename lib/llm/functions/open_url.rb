@@ -10,17 +10,17 @@ module Llm
 
         @definition = {
           name: self.function_name,
-          description: I18n.t("functions.#{self.function_name}.description"),
+          description: I18n.t("ghostest.functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               url: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.url"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.url"),
               },
               what_i_want_to_know: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.what_i_want_to_know"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.what_i_want_to_know"),
               },
             },
             required: [:url, :what_i_want_to_know],
@@ -53,7 +53,7 @@ module Llm
               messages: [
                 {
                   role: "system",
-                  content: I18n.t("functions.#{self.function_name}.summary_system", purpose: @purpose),
+                  content: I18n.t("ghostest.functions.#{self.function_name}.summary_system", purpose: @purpose),
                 },
                 {
                   role: "user",

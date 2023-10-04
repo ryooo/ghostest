@@ -41,7 +41,7 @@ module Ghostest
     class << self
       def load(config_path, options)
         options = options.with_indifferent_access
-        default_config = parse_config_file(File.expand_path('config/default.yml'))
+        default_config = parse_config_file(File.expand_path('config/ghostest.yml'))
         if config_path.nil?
           Config.new(default_config.with_indifferent_access, options)
         elsif File.exist?(config_path)

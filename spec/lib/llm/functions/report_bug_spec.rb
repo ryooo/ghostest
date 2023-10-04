@@ -13,13 +13,13 @@ RSpec.describe Llm::Functions::ReportBug do
     it 'returns the correct definition' do
       expected_definition = {
         name: :report_bug,
-        description: I18n.t("functions.report_bug.description"),
+        description: I18n.t("ghostest.functions.report_bug.description"),
         parameters: {
           type: :object,
           properties: {
             message: {
               type: :string,
-              description: I18n.t("functions.report_bug.parameters.message"),
+              description: I18n.t("ghostest.functions.report_bug.parameters.message"),
             },
           },
           required: [:message],

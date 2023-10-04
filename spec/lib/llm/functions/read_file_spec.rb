@@ -13,13 +13,13 @@ RSpec.describe Llm::Functions::ReadFile do
     it 'returns the correct definition' do
       expect(read_file.definition).to eq({
         name: :read_file,
-        description: I18n.t("functions.read_file.description"),
+        description: I18n.t("ghostest.functions.read_file.description"),
         parameters: {
           type: :object,
           properties: {
             filepath: {
               type: :string,
-              description: I18n.t("functions.read_file.parameters.filepath"),
+              description: I18n.t("ghostest.functions.read_file.parameters.filepath"),
             },
           },
           required: [:filepath],

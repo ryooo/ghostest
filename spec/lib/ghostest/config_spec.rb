@@ -135,7 +135,7 @@ RSpec.describe Ghostest::Config do
     context 'when called with a valid config_path' do
       it 'correctly loads the configuration' do
         options = { llm: :azure_open_ai, debug: true, use_web: true }
-        config_path = 'config/default.yml'
+        config_path = 'config/ghostest.yml'
         config = described_class.load(config_path, options)
         expect(config).to be_a Ghostest::Config
       end
@@ -172,6 +172,23 @@ RSpec.describe Ghostest::Config do
         options = { llm: :azure_open_ai, debug: true, use_web: true }
         config_path = 'spec/dummy/invalid.yml'
         expect { described_class.load(config_path, options) }.to raise_error(Ghostest::ConfigError)
+      end
+    end
+  end
+
+  describe '.parse_config_file' do
+    context 'when called with a valid file path' do
+      it 'correctly parses the YAML file' do
+        path = 'spec/dummy/temp_config.yml'
+        parsed_data = described_class.send(:parse_config_file, path)
+        expect(parsed_data).to eq({ 'key1' => 'value1', 'key2' => 'value2' })
+      end
+    end
+
+    context 'when called with an invalid file path' do
+      it 'raises an error' do
+        path = 'invalid/path.yml'
+        expect { described_class.send(:parse_config_file, path) }.to raise_error(Errno::ENOENT)
       end
     end
   end

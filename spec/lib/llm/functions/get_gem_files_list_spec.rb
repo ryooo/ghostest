@@ -19,10 +19,10 @@ RSpec.describe Llm::Functions::GetGemFilesList do
     it 'returns the correct function definition' do
       definition = function.definition
       expect(definition[:name]).to eq :get_gem_files_list
-      expect(definition[:description]).to eq I18n.t('functions.get_gem_files_list.description')
+      expect(definition[:description]).to eq I18n.t('ghostest.functions.get_gem_files_list.description')
       expect(definition[:parameters][:type]).to eq :object
       expect(definition[:parameters][:properties][:gem_name][:type]).to eq :string
-      expect(definition[:parameters][:properties][:gem_name][:description]).to eq I18n.t('functions.get_gem_files_list.parameters.gem_name')
+      expect(definition[:parameters][:properties][:gem_name][:description]).to eq I18n.t('ghostest.functions.get_gem_files_list.parameters.gem_name')
       expect(definition[:parameters][:properties][:gem_name][:enum]).to eq described_class.gem_name_enums
       expect(definition[:parameters][:required]).to eq [:gem_name]
     end

@@ -32,18 +32,18 @@ module Llm
         # @assigneeに応じて毎回作り直す
         definition = {
           name: self.function_name,
-          description: I18n.t("functions.#{self.function_name}.description"),
+          description: I18n.t("ghostest.functions.#{self.function_name}.description"),
           parameters: {
             type: :object,
             properties: {
               next_assignee: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.next_assignee"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.next_assignee"),
                 enum: @valid_agents - [@assignee.name_with_type],
               },
               message: {
                 type: :string,
-                description: I18n.t("functions.#{self.function_name}.parameters.message"),
+                description: I18n.t("ghostest.functions.#{self.function_name}.parameters.message"),
               },
             },
             required: [:assignee, :message],

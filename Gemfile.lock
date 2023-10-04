@@ -2,6 +2,15 @@ PATH
   remote: .
   specs:
     ghostest (0.1.0)
+      addressable (~> 2.8)
+      baran (~> 0.1.8)
+      colorize (~> 1.1.0)
+      google-apis-customsearch_v1 (~> 0.15.0)
+      html2markdown (~> 0.0.3)
+      i18n (~> 1.14.1)
+      indifference (~> 0.0.1)
+      ruby-openai (~> 5.1.0)
+      tiktoken_ruby (~> 0.0.5)
 
 GEM
   remote: https://rubygems.org/

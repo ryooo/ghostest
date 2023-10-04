@@ -70,7 +70,7 @@ lib/ghostest/attr_reader.rb:
 lib/ghostest/config/agent.rb:
   :source_md5: b498e2b28045ca4dbd371f2dc56c1bfa
 lib/ghostest/config.rb:
-  :source_md5: 2f800d51399635cfd50d1ae5daa3049d
+  :source_md5: 4706f89b360dcdcb21fe3d5e81994e7e
 lib/ghostest/config_error.rb:
   :source_md5: 693982b3423617b355df1391cd2a328d
 lib/ghostest/error.rb:

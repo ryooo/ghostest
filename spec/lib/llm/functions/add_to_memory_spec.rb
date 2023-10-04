@@ -14,13 +14,13 @@ RSpec.describe Llm::Functions::AddToMemory do
     it 'returns the correct function definition' do
       expected_definition = {
         name: :add_to_memory,
-        description: I18n.t('functions.add_to_memory.description'),
+        description: I18n.t('ghostest.functions.add_to_memory.description'),
         parameters: {
           type: :object,
           properties: {
             contents_to_memory: {
               type: :string,
-              description: I18n.t('functions.add_to_memory.parameters.contents_to_memory'),
+              description: I18n.t('ghostest.functions.add_to_memory.parameters.contents_to_memory'),
             },
           },
           required: [:contents_to_memory],
@@ -35,7 +35,7 @@ RSpec.describe Llm::Functions::AddToMemory do
       it 'adds the correct system message to the message_container' do
         args = { contents_to_memory: 'Test message' }
         add_to_memory.execute_and_generate_message(args)
-        expect(message_container.messages).to include({ role: :system, content: I18n.t('functions.add_to_memory.system_message_prefix', contents_to_memory: args[:contents_to_memory]) })
+        expect(message_container.messages).to include({ role: :system, content: I18n.t('ghostest.functions.add_to_memory.system_message_prefix', contents_to_memory: args[:contents_to_memory]) })
       end
 
       it 'returns a hash with result: success' do

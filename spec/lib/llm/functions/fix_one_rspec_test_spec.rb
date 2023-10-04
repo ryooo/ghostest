@@ -12,17 +12,17 @@ RSpec.describe Llm::Functions::FixOneRspecTest do
     it 'returns the correct definition' do
       expect(subject.definition).to include(
         name: :fix_one_rspec_test,
-        description: I18n.t('functions.fix_one_rspec_test.description'),
+        description: I18n.t('ghostest.functions.fix_one_rspec_test.description'),
         parameters: {
           type: :object,
           properties: {
             file_path: {
               type: :string,
-              description: I18n.t('functions.fix_one_rspec_test.parameters.file_path'),
+              description: I18n.t('ghostest.functions.fix_one_rspec_test.parameters.file_path'),
             },
             line_num: {
               type: :string,
-              description: I18n.t('functions.fix_one_rspec_test.parameters.line_num'),
+              description: I18n.t('ghostest.functions.fix_one_rspec_test.parameters.line_num'),
             },
           },
           required: [:file_path, :line_num],
