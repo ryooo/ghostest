@@ -76,6 +76,14 @@ RSpec.describe Llm::Functions::FixOneRspecTest do
 
         expect(result).to eq({ stdout: 'failure stdout', stderr: 'failure stderr', exit_status: 1 })
       end
+
+      it 'executes the rspec script 5 times' do
+        allow(Open3).to receive(:capture3).and_return(['failure stdout', 'failure stderr', instance_double(Process::Status, exitstatus: 1)])
+
+        subject.execute_and_generate_message({ file_path: 'spec/dummy/failing_test_spec.rb', line_num: '3' })
+
+        expect(Open3).to have_received(:capture3).exactly(5).times
+      end
     end
 
     context 'when the rspec test passes' do

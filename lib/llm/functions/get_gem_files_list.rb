@@ -32,7 +32,7 @@ module Llm
 
       def execute_and_generate_message(args)
         unless self.class.gem_name_enums.include?(args['gem_name'])
-          raise Ghostest::Error.new("Please specify a valid gem name.")
+          return { message: 'invalid gem_name. gem_name is below' + self.class.gem_name_enums.join("\n") }
         end
         files_list = Dir.glob("#{Gem.paths.home}/gems/#{args['gem_name']}/**/*.{rb,yml}")
 

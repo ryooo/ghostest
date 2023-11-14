@@ -26,13 +26,6 @@ module Llm
           end
         end
       end
-
-      def create_web_functions
-        [
-          Llm::Functions::GoogleSearch.new,
-          Llm::Functions::OpenUrl.new,
-        ]
-      end
     end
   end
 end

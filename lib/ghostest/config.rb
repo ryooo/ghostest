@@ -1,12 +1,11 @@
 module Ghostest
   class Config
     include AttrReader
-    attr_reader :llm, :debug, :use_web, :max_token, :watch_files, :agents, :language
+    attr_reader :llm, :debug, :max_token, :watch_files, :agents, :language
 
     def initialize(hash, options)
       @llm = options[:llm]
       @debug = options[:debug]
-      @use_web = options[:use_web]
 
       @max_token = hash[:max_token] || 32000
       @language = (hash[:language] || raise(ConfigError.new("Language is required"))).to_sym
@@ -17,7 +16,7 @@ module Ghostest
     end
 
     def llm_klass
-      case @llm.to_sym
+      case @llm&.to_sym
       when :azure_open_ai
         return Llm::Clients::AzureOpenAi
       else
@@ -32,10 +31,6 @@ module Ghostest
       else
         raise ConfigError.new("Unknown language #{self.language}")
       end
-    end
-
-    def use_web?
-      !!@use_web
     end
 
     class << self

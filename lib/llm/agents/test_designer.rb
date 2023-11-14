@@ -30,8 +30,7 @@ module Llm
             Llm::Functions::ReportBug.new,
             switch_assignee_function,
 
-          ] + (self.config.use_web? ? self.create_web_functions : []) + \
-          self.config.language_klass.create_functions,
+          ] + self.config.language_klass.create_functions,
           agent: self,
         )
 

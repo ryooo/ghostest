@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ghostest/config/agent'
 
 RSpec.describe Ghostest::Config::Agent do
-  let(:global_config) { double('GlobalConfig', use_web: true, language_klass: 'Ruby') }
+  let(:global_config) { double('GlobalConfig', language_klass: 'Ruby') }
 
   describe '#initialize' do
     let(:hash) { { role: 'test_programmer', system_prompt: 'System Prompt', color: 'blue' } }

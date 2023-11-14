@@ -36,12 +36,4 @@ RSpec.describe Llm::Agents::Base do
       agent.say('Hello, world!')
     end
   end
-
-  describe '#create_web_functions' do
-    subject { described_class.new('Mr_programmer', config, logger).create_web_functions }
-
-    it 'returns an array of GoogleSearch and OpenUrl instances' do
-      expect(subject.map(&:class)).to contain_exactly(Llm::Functions::GoogleSearch, Llm::Functions::OpenUrl)
-    end
-  end
 end

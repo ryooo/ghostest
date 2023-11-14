@@ -36,9 +36,11 @@ RSpec.describe Llm::Functions::GetGemFilesList do
       expect(result[:files_list]).to eq files_list
     end
 
-    it 'raises an error when given an invalid gem name' do
+    it 'returns a message with valid gem names when given an invalid gem name' do
       invalid_gem_name = 'invalid_gem_name'
-      expect { function.execute_and_generate_message('gem_name' => invalid_gem_name) }.to raise_error(Ghostest::Error)
+      result = function.execute_and_generate_message('gem_name' => invalid_gem_name)
+      expect(result[:message]).to start_with('invalid gem_name. gem_name is below')
+      expect(result[:message]).to include(*described_class.gem_name_enums)
     end
   end
 end

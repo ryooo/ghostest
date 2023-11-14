@@ -14,14 +14,12 @@ config_path = nil
 
 options = {
   llm: :open_ai,
-  use_web: false,
   debug: false,
 }
 
 ARGV.options do |opt|
   opt.on('-c', '--config') { |v| config_path = v }
   opt.on('-a', '--use-azure') { options[:llm] = :azure_open_ai }
-  opt.on('-w', '--use-web') { options[:use_web] = true }
   opt.on('', '--debug') { options[:debug] = true }
 
   opt.on('-v', '--version') do
