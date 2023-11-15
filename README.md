@@ -1,31 +1,50 @@
-# Ghostest
+# 概要
+ghostestは**ローカルPC上で動作するテストコード自動生成LLMエージェントツール**です。
 
-TODO: Delete this and the text below, and describe your gem
+# 使い方
+#### インストール
+```sh
+gem install ghostest
+```
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ghostest`. To experiment with that code, run `bin/console` for an interactive prompt.
+#### config/ghostest.ymlを作成
+```yaml
+language: ruby
 
-## Installation
+watch_files:
+  - app/models/user.rb # テスト対象ファイル
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+agents:
+  Mr_test_designer:
+    role: test_designer
+    color: light_yellow
+    system_prompt: |- # システムプロンプトをカスタマイズ可能
+      <%= I18n.t("ghostest.agents.test_designer.ruby.default_system_prompt").gsub("\n", "\n      ") %>
+      - Ruby version assumes 3 series.
 
-Install the gem and add to the application's Gemfile by executing:
+  Mr_test_programmer:
+    role: test_programmer
+    color: cyan
+    system_prompt: |-
+      <%= I18n.t("ghostest.agents.test_programmer.ruby.default_system_prompt").gsub("\n", "\n      ") %>
+      - Ruby version assumes 3 series.
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+  Mr_reviewer:
+    role: reviewer
+    color: green
+    system_prompt: |-
+      <%= I18n.t("ghostest.agents.reviewer.ruby.default_system_prompt").gsub("\n", "\n      ") %>
+```
+※ デフォルトのシステムプロンプトは以下のようになっています。
+https://github.com/ryooo/ghostest/blob/4b33f6f26bd5f7513b9fc7085c61964876339c4f/config/locales/agents/test_programmer/en.yml#L19-L56
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+#### Azureのトークンを設定
+```sh
+xport AZURE_OPENAI_API_KEY=xxxxxx
+```
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ghostest.
+#### 起動
+```sh
+bundle exec ghostest --use-azure
+```
+※ デフォルトはOpenAIになっていますが動作確認は取れていません
