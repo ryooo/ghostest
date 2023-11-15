@@ -10,16 +10,16 @@ Gem::Specification.new do |spec|
   spec.authors = ["ryooo"]
   spec.email = ["ryooo.321@gmail.com"]
 
-  spec.summary = "summary"
-  spec.description = "description"
-  spec.homepage = "https://github.com/ryooo"
-  spec.required_ruby_version = ">= 3.2.1"
+  spec.summary = "Test code generator by llm"
+  spec.description = "Output test code using LLM agents."
+  spec.homepage = "https://github.com/ryooo/ghostest"
+  # spec.required_ruby_version = ">= 3.2.1"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/ryooo"
-  spec.metadata["changelog_uri"] = "https://github.com/ryooo"
+  spec.metadata["source_code_uri"] = "https://github.com/ryooo/ghostest"
+  spec.metadata["changelog_uri"] = "https://github.com/ryooo/ghostest"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -33,16 +33,16 @@ Gem::Specification.new do |spec|
   spec.executables = ['ghostest']
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "rspec", "~> 3.12"
-  spec.add_development_dependency "rubocop", "~> 1.56"
-  spec.add_dependency 'ruby-openai', '~> 5.1.0'
-  spec.add_dependency 'html2markdown', '~> 0.0.3'
-  spec.add_dependency 'addressable', '~> 2.8'
-  spec.add_dependency 'baran', '~> 0.1.8'
-  spec.add_dependency 'tiktoken_ruby', '~> 0.0.5'
-  spec.add_dependency 'google-apis-customsearch_v1', '~> 0.15.0'
-  spec.add_dependency 'colorize', '~> 1.1.0'
-  spec.add_dependency 'i18n', '~> 1.14.1'
-  spec.add_dependency 'indifference', '~> 0.0.1'
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rubocop"
+  spec.add_dependency 'ruby-openai'
+  spec.add_dependency 'html2markdown'
+  spec.add_dependency 'addressable'
+  spec.add_dependency 'baran'
+  spec.add_dependency 'tiktoken_ruby'
+  spec.add_dependency 'google-apis-customsearch_v1'
+  spec.add_dependency 'colorize'
+  spec.add_dependency 'i18n'
+  spec.add_dependency 'indifference'
 
 end

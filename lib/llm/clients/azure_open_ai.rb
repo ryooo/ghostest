@@ -1,7 +1,7 @@
 module Llm
   module Clients
     class AzureOpenAi < Llm::Clients::Base
-      def initialize(timeout: 300)
+      def initialize(timeout: 30000)
         @client = OpenAI::Client.new(
           api_type: :azure,
           api_version: ENV.fetch("AZURE_API_VERSION"),

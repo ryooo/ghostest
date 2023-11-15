@@ -17,7 +17,7 @@ RSpec.describe Llm::Clients::AzureOpenAi do
         api_version: ENV['AZURE_API_VERSION'],
         access_token: ENV['AZURE_OPENAI_API_KEY'],
         uri_base: "#{ENV['AZURE_API_BASE']}/openai/deployments/#{ENV['AZURE_DEPLOYMENT_NAME']}",
-        request_timeout: 300
+        request_timeout: 30000
       )
     end
 
